@@ -24,6 +24,7 @@ RUN go install github.com/tomnomnom/waybackurls@latest
 #install Nuclei
 
 RUN go install github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
+#cat sonder.txt | while read username; do nuclei -u  $username; done
 
 #install HttpX
 RUN go install github.com/projectdiscovery/httpx/cmd/httpx@latest
@@ -46,6 +47,11 @@ CMD ["bash", "-c", "make && cd OneForAll && python3 oneforall.py --help"]
 
 #sqlmap
 #trufflehog
+
+#gh repo list --json name --limit 500 orgname --jq '.[].name' > gitrepo.txt
+#cat gitrepo.txt
+#for i in $(cat gitrepo.txt) ; do docker run --platform linux/arm64 -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --repo https://github.com/orgname/$i.git --only-verified  > git-$i.txt ; done 
+
 #S3Scanner
 
 # Expose the tools to anyone who runs the container
